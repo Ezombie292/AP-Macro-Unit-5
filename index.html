@@ -98,145 +98,155 @@
 <script>
 // ===== SCENARIOS (same step structure) =====
 const SC=[
+// pc: Phillips Curve movement along SRPC. [from_t, to_t] where 0=upper-left (low UR, high inf), 1=lower-right (high UR, low inf). 0.5=NRU center.
+// movArr: small arrow on PC showing movement direction
+
 {id:"base",n:"Base Equilibrium",d:"Full employment, no shocks",
-steps:[{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+steps:[{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Long-Run Equilibrium",
 c:"All four markets at equilibrium. AD and SRAS intersect on LRAS at Yf. The SRPC crosses LRPC at the NRU.",
-d:"Draw this first on every FRQ. Label E₀, PL₀, Y₀."}]},
+d:"Draw this first on every FRQ. Label E₀, PL₀, Y₀. On the Phillips Curve, the economy sits at point 1 — right on the LRPC at the NRU."}]},
 
 {id:"em",n:"Expansionary Monetary",d:"Fed ↑ Sᴍ → ↓ n.i.r. → ↑ AD",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"Economy at full employment. All graphs at E₀.",d:"The Fed is about to act."},
-{s:{ad:0,sras:0,lras:0,ms:2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment. All graphs at E₀. Phillips Curve at point 1 (NRU).",d:"The Fed is about to act."},
+{s:{ad:0,sras:0,lras:0,ms:2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 2: Fed Increases Money Supply",
 c:'Fed buys bonds / ↓ discount rate / ↓ reserve req <span class="a">→</span> Sᴍ shifts RIGHT.',
-d:"Money Market: Sᴍ shifts right to Sᴍ₂. The n.i.r. falls from i₁ to i₂. This is the Fed's direct tool."},
-{s:{ad:1.8,sras:0,lras:0,ms:2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 3: Lower n.i.r. → AD Shifts Right",
-c:'Lower n.i.r. <span class="a">→</span> borrowing cheaper <span class="a">→</span> Ig↑ <span class="a">→</span> AD shifts RIGHT <span class="a">→</span> PL↑, Y₁ > Yf (inflationary gap).',
-d:"AD/AS: AD shifts right. E₁ above Yf. On Phillips Curve: move UP-LEFT along SAME SRPC (↓unemp, ↑infl). SRPC does NOT shift."}]},
+d:"Money Market: Sᴍ shifts right to Sᴍ₂. The n.i.r. falls from i₁ to i₂. Other graphs unchanged yet — the effect hasn't transmitted to AD yet."},
+{s:{ad:1.8,sras:0,lras:0,ms:2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.28],
+t:"Step 3: Lower n.i.r. → AD Shifts Right → Move Along SRPC",
+c:'Lower n.i.r. <span class="a">→</span> Ig↑ <span class="a">→</span> AD shifts RIGHT <span class="a">→</span> PL↑, Y₁ > Yf. Phillips Curve: move from point 1 to point 2 UP-LEFT along SAME SRPC (↓UR, ↑inf).',
+d:"SRPC does NOT shift — demand changes cause MOVEMENT ALONG the curve. The economy moves to lower unemployment and higher inflation. Loanable Funds is unaffected by monetary policy directly."}]},
 
 {id:"cm",n:"Contractionary Monetary",d:"Fed ↓ Sᴍ → ↑ n.i.r. → ↓ AD",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
-{s:{ad:0,sras:0,lras:0,ms:-2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment. Point 1 at NRU on Phillips Curve.",d:""},
+{s:{ad:0,sras:0,lras:0,ms:-2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 2: Fed Decreases Money Supply",
 c:'Fed sells bonds / ↑ discount rate / ↑ reserve req <span class="a">→</span> Sᴍ shifts LEFT.',
-d:"Money Market: n.i.r. RISES. Borrowing more expensive."},
-{s:{ad:-1.8,sras:0,lras:0,ms:-2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 3: Higher n.i.r. → AD Shifts Left",
-c:'Higher n.i.r. <span class="a">→</span> Ig↓ <span class="a">→</span> AD shifts LEFT <span class="a">→</span> Y₁ < Yf (recessionary gap).',
-d:"Move DOWN-RIGHT along SAME SRPC (↑unemp, ↓infl)."}]},
+d:"Money Market: n.i.r. RISES. Borrowing more expensive. Other graphs unchanged yet."},
+{s:{ad:-1.8,sras:0,lras:0,ms:-2,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.72],
+t:"Step 3: Higher n.i.r. → AD Left → Move Along SRPC",
+c:'Higher n.i.r. <span class="a">→</span> Ig↓ <span class="a">→</span> AD shifts LEFT <span class="a">→</span> Y₁ < Yf. Phillips Curve: move from point 1 to point 2 DOWN-RIGHT along SRPC (↑UR, ↓inf).',
+d:"Again, SRPC does NOT shift. The economy moves to higher unemployment and lower inflation along the same curve."}]},
 
 {id:"ef",n:"Expansionary Fiscal",d:"↑G or ↓T → ↑AD + crowding out",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
-{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 2: Gov ↑G or ↓T → AD Right",
-c:'↑G or ↓T <span class="a">→</span> AD shifts RIGHT <span class="a">→</span> Y₁ > Yf, PL₁ > PL₀.',
-d:"Creates inflationary gap."},
-{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2,srpc:0,lrpc:0},
+{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.25],
+t:"Step 2: Gov ↑G or ↓T → AD Right → Move Along SRPC",
+c:'↑G or ↓T <span class="a">→</span> AD shifts RIGHT <span class="a">→</span> Y₁ > Yf, PL₁ > PL₀. Phillips Curve: move from 1 to 2 (↓UR, ↑inf).',
+d:"Creates inflationary gap. Movement ALONG SRPC — no shift. Money Market is unchanged by fiscal policy."},
+{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2,srpc:0,lrpc:0},pc:[0.5,0.25],
 t:"Step 3: Deficit → Gov Borrows → Crowding Out",
 c:'Deficit <span class="a">→</span> gov borrows <span class="a">→</span> DLF shifts RIGHT <span class="a">→</span> r.i.r.↑ <span class="a">→</span> private Ig crowded out.',
-d:"Loanable Funds: DLF shifts right, r.i.r. rises. Private investment falls, partially offsetting AD increase."}]},
+d:"Loanable Funds: DLF shifts right, r.i.r. rises. Private investment falls, partially offsetting AD increase. Phillips Curve position unchanged from step 2. Money Market unaffected."}]},
 
 {id:"cf",n:"Contractionary Fiscal",d:"↓G or ↑T → ↓AD",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 2: Gov ↓G or ↑T → AD Left",
-c:'↓G or ↑T <span class="a">→</span> AD shifts LEFT <span class="a">→</span> recessionary gap.',d:""},
-{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:-2,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.75],
+t:"Step 2: Gov ↓G or ↑T → AD Left → Move Along SRPC",
+c:'↓G or ↑T <span class="a">→</span> AD shifts LEFT <span class="a">→</span> recessionary gap. Phillips Curve: move from 1 to 2 (↑UR, ↓inf).',
+d:"Movement along SRPC — no shift. Money Market unchanged."},
+{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:-2,srpc:0,lrpc:0},pc:[0.5,0.75],
 t:"Step 3: Surplus → Less Borrowing → r.i.r. Falls",
-c:'Surplus <span class="a">→</span> DLF shifts LEFT <span class="a">→</span> r.i.r.↓ <span class="a">→</span> some ↑ private Ig (reverse crowding out).',d:""}]},
+c:'Surplus <span class="a">→</span> DLF shifts LEFT <span class="a">→</span> r.i.r.↓ <span class="a">→</span> some ↑ private Ig (reverse crowding out).',
+d:"Loanable Funds: DLF left, r.i.r. falls. Phillips Curve same as step 2."}]},
 
 {id:"ns",n:"Negative Supply Shock",d:"↑ Input costs → stagflation",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:0,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 2: SRAS Shifts Left",
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:0,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 2: SRAS Shifts Left → Stagflation",
 c:'↑ oil / wages / input costs <span class="a">→</span> SRAS shifts LEFT <span class="a">→</span> PL↑ AND Y↓ = STAGFLATION.',
-d:"ONLY scenario with BOTH ↑PL and ↓Y."},
-{s:{ad:0,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},
+d:"ONLY scenario with BOTH ↑PL and ↓Y. Phillips Curve hasn't shifted yet but WILL in the next step — supply shocks SHIFT the SRPC."},
+{s:{ad:0,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},pc:[0.5],
 t:"Step 3: SRPC Shifts Right/Up",
-c:'Supply shock <span class="a">→</span> SRPC SHIFTS right/up. Higher inflation at every UR.',
-d:"KEY: Demand changes = move ALONG SRPC. Supply shocks = SHIFT the SRPC."}]},
+c:'Supply shock <span class="a">→</span> SRPC SHIFTS right/up. Higher inflation at every UR. Point 1 stays at NRU but now on the NEW, higher SRPC.',
+d:"KEY AP DISTINCTION: Demand changes = MOVEMENT ALONG SRPC. Supply shocks = SHIFT of the SRPC itself. Money Market and Loanable Funds are unaffected."}]},
 
 {id:"ps",n:"Positive Supply Shock",d:"↓ Input costs → SRAS→, SRPC↓",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:0,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:0,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 2: SRAS Shifts Right",
-c:'↓ input costs / ↑ productivity <span class="a">→</span> SRAS shifts RIGHT <span class="a">→</span> PL↓, Y↑.',d:""},
-{s:{ad:0,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:-2,lrpc:0},
+c:'↓ input costs / ↑ productivity <span class="a">→</span> SRAS shifts RIGHT <span class="a">→</span> PL↓, Y↑.',
+d:"Phillips Curve will shift next step."},
+{s:{ad:0,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:-2,lrpc:0},pc:[0.5],
 t:"Step 3: SRPC Shifts Left/Down",
-c:'Positive supply shock <span class="a">→</span> SRPC shifts LEFT/DOWN.',d:""}]},
+c:'Positive supply shock <span class="a">→</span> SRPC SHIFTS LEFT/DOWN. Lower inflation at every UR.',
+d:"Supply shock shifts the SRPC — not movement along it."}]},
 
 {id:"lr-r",n:"Self-Correction: Recession",d:"Wages↓ → SRAS→ → back to Yf",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 2: AD Shifts Left (Recession)",
-c:'AD₁ shifts LEFT <span class="a">→</span> Y₁ < Yf (recessionary gap).',d:""},
-{s:{ad:-2,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 3: Long-Run Self-Correction",
-c:'Surplus of workers <span class="a">→</span> wages↓ <span class="a">→</span> SRAS shifts RIGHT <span class="a">→</span> back to Yf at LOWER PL.',
-d:"AP FRQ classic: \"In the long run with no gov action...\" Wages fall → SRAS right → back to LRAS."}]},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:-2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.72],
+t:"Step 2: AD Shifts Left (Recession) → Move Along SRPC",
+c:'AD₁ shifts LEFT <span class="a">→</span> Y₁ < Yf (recessionary gap). Phillips Curve: move from 1 to 2 DOWN-RIGHT along SRPC (↑UR, ↓inf).',
+d:"SRPC does not shift — demand change causes movement along it."},
+{s:{ad:-2,sras:2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 3: Long-Run Self-Correction → Back to NRU",
+c:'Wages↓ <span class="a">→</span> SRAS shifts RIGHT <span class="a">→</span> back to Yf at LOWER PL. Phillips Curve: move back to point 1 at NRU.',
+d:"AP FRQ classic: \"In the long run with no gov action...\" Economy returns to LRAS and LRPC."}]},
 
 {id:"lr-i",n:"Self-Correction: Inflation",d:"Wages↑ → SRAS← → back to Yf",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 2: AD Shifts Right (Inflationary Gap)",
-c:'AD₁ RIGHT <span class="a">→</span> Y₁ > Yf.',d:""},
-{s:{ad:2,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 3: Long-Run Self-Correction",
-c:'Workers demand ↑ wages <span class="a">→</span> SRAS shifts LEFT <span class="a">→</span> back to Yf at HIGHER PL.',d:""}]},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:2,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5,0.28],
+t:"Step 2: AD Shifts Right (Inflationary Gap) → Move Along SRPC",
+c:'AD₁ RIGHT <span class="a">→</span> Y₁ > Yf. Phillips Curve: move from 1 to 2 UP-LEFT along SRPC (↓UR, ↑inf).',d:""},
+{s:{ad:2,sras:-2,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 3: Long-Run Self-Correction → Back to NRU",
+c:'Workers demand ↑ wages <span class="a">→</span> SRAS shifts LEFT <span class="a">→</span> back to Yf at HIGHER PL. Phillips Curve: back to point 1 at NRU.',d:""}]},
 
 {id:"co",n:"Crowding Out Detail",d:"Gov borrows → r.i.r.↑ → Ig↓",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2.5,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2.5,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 2: Gov Borrows → DLF Right",
-c:'Deficit <span class="a">→</span> DLF shifts RIGHT <span class="a">→</span> r.i.r.₁ > r.i.r.₀.',d:""},
-{s:{ad:1,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2.5,srpc:0,lrpc:0},
-t:"Step 3: Higher r.i.r. → Smaller AD Shift",
-c:'r.i.r.↑ <span class="a">→</span> Ig↓ <span class="a">→</span> AD shifts RIGHT but LESS than full multiplier.',d:""}]},
+c:'Deficit <span class="a">→</span> DLF shifts RIGHT <span class="a">→</span> r.i.r.↑. AD/AS and Phillips Curve unchanged yet — the crowding out hasn\'t reduced investment yet.',d:""},
+{s:{ad:1,sras:0,lras:0,ms:0,md:0,slf:0,dlf:2.5,srpc:0,lrpc:0},pc:[0.5,0.38],
+t:"Step 3: Higher r.i.r. → Smaller AD Shift → Move Along SRPC",
+c:'r.i.r.↑ <span class="a">→</span> Ig↓ <span class="a">→</span> AD shifts RIGHT but LESS than full multiplier. Phillips Curve: small move from 1 to 2 (slight ↓UR, ↑inf).',
+d:"The AD shift is small because crowding out reduced its size."}]},
 
 {id:"ie",n:"↑ Inflation Expectations",d:"SRPC↑, SRAS←",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},pc:[0.5],
 t:"Step 2: SRPC Shifts Up/Right",
-c:'Expected inflation↑ <span class="a">→</span> SRPC shifts RIGHT/UP.',d:""},
-{s:{ad:0,sras:-1.8,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},
+c:'Expected inflation↑ <span class="a">→</span> SRPC shifts RIGHT/UP. Point 1 now on the higher SRPC at NRU — same unemployment but higher inflation.',
+d:"AD/AS unchanged yet. Money Market and Loanable Funds unaffected."},
+{s:{ad:0,sras:-1.8,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:2,lrpc:0},pc:[0.5],
 t:"Step 3: Workers Demand ↑ Wages → SRAS Left",
-c:'↑ wages <span class="a">→</span> SRAS shifts LEFT <span class="a">→</span> PL↑, Y↓.',
-d:"Self-fulfilling: expecting inflation causes inflation."}]},
+c:'↑ wages <span class="a">→</span> SRAS shifts LEFT <span class="a">→</span> PL↑, Y↓. Phillips Curve: still at NRU on the new SRPC.',
+d:"Self-fulfilling: expecting inflation causes inflation. Money Market and Loanable Funds unaffected."}]},
 
 {id:"gr",n:"Long-Run Growth",d:"↑ Tech → LRAS→, LRPC←",
 steps:[
-{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
-t:"Step 1: Start at Equilibrium",c:"",d:""},
-{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},
+{s:{ad:0,sras:0,lras:0,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
+t:"Step 1: Start at Equilibrium",c:"Economy at full employment.",d:""},
+{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:0},pc:[0.5],
 t:"Step 2: LRAS Shifts Right",
-c:'↑ tech / resources / human capital <span class="a">→</span> LRAS shifts RIGHT. Yf increases.',d:""},
-{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:-2},
-t:"Step 3: LRPC Shifts Left",
-c:'Structural improvements <span class="a">→</span> LRPC LEFT. NRU decreases.',d:""},
-{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:1.5,dlf:0,srpc:0,lrpc:-2},
+c:'↑ tech / resources / human capital <span class="a">→</span> LRAS shifts RIGHT. Yf increases. Phillips Curve unchanged yet.',d:""},
+{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:0,dlf:0,srpc:0,lrpc:-2},pc:[0.5],
+t:"Step 3: LRPC Shifts Left → NRU Decreases",
+c:'Structural improvements <span class="a">→</span> LRPC LEFT. NRU decreases. Economy now at new, lower NRU.',d:""},
+{s:{ad:0,sras:0,lras:2,ms:0,md:0,slf:1.5,dlf:0,srpc:0,lrpc:-2},pc:[0.5],
 t:"Step 4: More Savings → SLF Right",
-c:'Higher income <span class="a">→</span> SLF shifts RIGHT <span class="a">→</span> r.i.r.↓.',d:""}]}
+c:'Higher income <span class="a">→</span> SLF shifts RIGHT <span class="a">→</span> r.i.r.↓. AD/AS, Money Market, and Phillips Curve unchanged by this.',d:""}]}
 ];
 
 let cur=SC[0],stepIdx=0,showLR=true,showOrig=true,showEq=true;
@@ -488,6 +498,64 @@ function drawPC(){
 
   ln(g,sp1[0][0],sp1[0][1],sp1[1][0],sp1[1][1],C.srpc,2.5);
   tx(g,sp1[1][0]+4,sp1[1][1]+12,s.srpc?'SRPC₂':'SRPC',C.srpc,11,'start',true);
+
+  // === Movement along SRPC (pc array) ===
+  const pcArr=cur.steps[stepIdx].pc;
+  if(pcArr&&pcArr.length>=1&&showEq){
+    // Compute point on the current (shifted) SRPC line at parameter t (0=top-left, 1=bottom-right)
+    const ptOn=(t)=>[sp1[0][0]+t*(sp1[1][0]-sp1[0][0]), sp1[0][1]+t*(sp1[1][1]-sp1[0][1])];
+
+    if(pcArr.length===1){
+      // Single point — just show point 1 with dashed lines
+      const p=ptOn(pcArr[0]);
+      const px=Math.max(5,Math.min(gw-5,p[0])),py=Math.max(5,Math.min(gh-5,p[1]));
+      dH(g,0,py,px,C.dash);dV(g,px,py,gh,C.dash);
+      dt(g,px,py,C.eq,5.5);
+      tx(g,px-9,py-9,'1',C.eq,9.5,'end',true);
+      // Axis labels
+      tx(g,-4,py+3,'π₀',C.eq,8.5,'end');
+      tx(g,px,gh+16,'UR₀',C.eq,8.5);
+    }
+    if(pcArr.length>=2){
+      // Two points — show movement from 1 to 2
+      const p1=ptOn(pcArr[0]),p2=ptOn(pcArr[1]);
+      const p1x=Math.max(5,Math.min(gw-5,p1[0])),p1y=Math.max(5,Math.min(gh-5,p1[1]));
+      const p2x=Math.max(5,Math.min(gw-5,p2[0])),p2y=Math.max(5,Math.min(gh-5,p2[1]));
+
+      // Point 1: dashed lines (faded) + dot
+      dH(g,0,p1y,p1x,C.dash2);dV(g,p1x,p1y,gh,C.dash2);
+      dt(g,p1x,p1y,C.eq2,4.5);
+      tx(g,p1x-9,p1y-9,'1',C.eq2,9.5,'end',true);
+      tx(g,-4,p1y+3,'π₁',C.eq2,8,'end');
+      tx(g,p1x,gh+16,'UR₁',C.eq2,8);
+
+      // Point 2: dashed lines (solid) + dot
+      dH(g,0,p2y,p2x,C.dash);dV(g,p2x,p2y,gh,C.dash);
+      dt(g,p2x,p2y,C.eq,5.5);
+      tx(g,p2x-9,p2y-9,'2',C.eq,10,'end',true);
+      tx(g,-4,p2y+3,'π₂',C.eq,8.5,'end');
+      tx(g,p2x,gh+16,'UR₂',C.eq,8.5);
+
+      // Movement arrow along the SRPC from point 1 to point 2
+      // Draw a curved arrow slightly offset from the line
+      const mx=(p1x+p2x)/2, my=(p1y+p2y)/2;
+      // Offset perpendicular to the line direction (to the left of movement direction)
+      const dx=p2x-p1x, dy=p2y-p1y, len=Math.sqrt(dx*dx+dy*dy);
+      if(len>8){
+        const nx=-dy/len, ny=dx/len; // perpendicular
+        const off=14; // offset distance
+        const cpx=mx+nx*off, cpy=my+ny*off;
+        // Shorten start/end slightly so arrow doesn't overlap dots
+        const t1=8/len, t2=1-8/len;
+        const sx=p1x+t1*dx, sy=p1y+t1*dy;
+        const ex=p1x+t2*dx, ey=p1y+t2*dy;
+        const path=mk('path',{d:`M${sx},${sy} Q${cpx},${cpy} ${ex},${ey}`,fill:'none',stroke:'#e65100','stroke-width':2,'stroke-dasharray':'4,3'},g);
+        // Arrowhead at point 2
+        const ang=Math.atan2(ey-cpy,ex-cpx), hs=7;
+        mk('polygon',{points:`${ex},${ey} ${ex-hs*Math.cos(ang-.4)},${ey-hs*Math.sin(ang-.4)} ${ex-hs*Math.cos(ang+.4)},${ey-hs*Math.sin(ang+.4)}`,fill:'#e65100'},g);
+      }
+    }
+  }
 }
 
 // ===== UI =====
